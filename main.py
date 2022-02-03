@@ -2,6 +2,9 @@ import torch
 from torch.nn.functional import softmax
 from torchvision.models import resnet18
 from torchvision.transforms import transforms
+import torch.nn as nn
+
+from .utils import load_state_dict_from_url
 
 from base_feature import BaseFeature
 
@@ -9,7 +12,7 @@ model_urls = {
     'mask': 'https://drive.google.com/uc?id=18AosQQaVDpY2PLQxOAwMTs1uaa-8mzpL',
 }
 
-class MaskDetection(BaseFeature):
+class MaskDetection(BaseFeature, nn.Module):
     
     def __init__(self, path="mask_weights.pt", device="cpu"):
         super().__init__(__file__, path, device)
@@ -40,10 +43,7 @@ class MaskDetection(BaseFeature):
         return response
 
 
-try:
-    from torch.hub import load_state_dict_from_url
-except ImportError:
-    from torch.utils.model_zoo import load_url as load_state_dict_from_url
+
 
 def mask(pretrained=False, progress=True, **kwargs):
     r"""AlexNet model architecture from the
