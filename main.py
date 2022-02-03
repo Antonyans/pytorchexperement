@@ -73,7 +73,7 @@ def _load_state_dict(model, model_url, progress):
 
 def _densenet(arch, growth_rate, block_config, num_init_features, pretrained, progress,
               **kwargs):
-    model = MaskDetection(growth_rate, block_config, num_init_features, **kwargs)
+    model = MaskDetection(device='cpu')
     if pretrained:
         _load_state_dict(model, model_urls[arch], progress)
     return model
