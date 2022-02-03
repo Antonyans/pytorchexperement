@@ -4,7 +4,7 @@ from torchvision.models import resnet18
 from torchvision.transforms import transforms
 import torch.nn as nn
 
-from .utils import load_state_dict_from_url
+from utils import load_state_dict_from_url
 
 from base_feature import BaseFeature
 
