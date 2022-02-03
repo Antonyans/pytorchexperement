@@ -49,6 +49,9 @@ class BaseFeature:
         if isinstance(facedet_response, dict):
             facedet_response = [facedet_response]
         faces = []
+        print('*'*60)
+        print(facedet_response)
+        print('*'*60)
         for response in facedet_response:
             image = response["_meta"]["image"]
             rect = response["rectangle"]

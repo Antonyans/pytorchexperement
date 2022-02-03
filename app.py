@@ -13,7 +13,7 @@ app = Flask(__name__)
 CORS(app)
 
 DEVICE = os.environ['DEVICE'] if 'DEVICE' in os.environ else 'cpu'
-FACE_DETECTION_URL = os.environ['FACE_DETECTION_URL'] if 'FACE_DETECTION_URL' in os.environ else 'http://192.168.2.251:8000'
+FACE_DETECTION_URL = os.environ['FACE_DETECTION_URL'] if 'FACE_DETECTION_URL' in os.environ else 'http://192.168.5.5:8005'
 
 
 @app.route('/', methods=['GET', 'POST'])
