@@ -16,8 +16,9 @@ model_urls = {
 
 class MaskDetection(nn.Module):
     
-    def __init__(self, path="mask_weights.pt", device="cpu"):
-        super().__init__(__file__, path, device)
+    # def __init__(self, path="mask_weights.pt", device="cpu"):
+        # super().__init__(__file__, path, device)
+
 
     def _load_model(self, path):
         model = resnet18()
