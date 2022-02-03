@@ -1,3 +1,5 @@
+import re
+
 import torch
 from torch.nn.functional import softmax
 from torchvision.models import resnet18
@@ -45,7 +47,7 @@ class MaskDetection(BaseFeature, nn.Module):
 
 
 
-def mask(pretrained=False, progress=True, **kwargs):
+def mask1(pretrained=False, progress=True, **kwargs):
     r"""AlexNet model architecture from the
     `"One weird trick..." <https://arxiv.org/abs/1404.5997>`_ paper.
 
@@ -59,3 +61,33 @@ def mask(pretrained=False, progress=True, **kwargs):
                                               progress=progress)
         model1.load_state_dict(state_dict)
     return model1
+
+def _load_state_dict(model, model_url, progress):
+    # '.'s are no longer allowed in module names, but previous _DenseLayer
+    # has keys 'norm.1', 'relu.1', 'conv.1', 'norm.2', 'relu.2', 'conv.2'.
+    # They are also in the checkpoints in model_urls. This pattern is used
+    # to find such keys.
+    pattern = re.compile(
+        r'^(.*denselayer\d+\.(?:norm|relu|conv))\.((?:[12])\.(?:weight|bias|running_mean|running_var))$')
+
+
+def _densenet(arch, growth_rate, block_config, num_init_features, pretrained, progress,
+              **kwargs):
+    model = MaskDetection(growth_rate, block_config, num_init_features, **kwargs)
+    if pretrained:
+        _load_state_dict(model, model_urls[arch], progress)
+    return model
+
+
+def mask(pretrained=False, progress=True, **kwargs):
+    r"""Densenet-201 model from
+    `"Densely Connected Convolutional Networks" <https://arxiv.org/pdf/1608.06993.pdf>`_
+
+    Args:
+        pretrained (bool): If True, returns a model pre-trained on ImageNet
+        progress (bool): If True, displays a progress bar of the download to stderr
+        memory_efficient (bool) - If True, uses checkpointing. Much more memory efficient,
+          but slower. Default: *False*. See `"paper" <https://arxiv.org/pdf/1707.06990.pdf>`_
+    """
+    return _densenet('mask', 32, (6, 12, 48, 32), 64, pretrained, progress,
+                     **kwargs)
