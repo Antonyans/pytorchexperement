@@ -16,8 +16,9 @@ model_urls = {
 
 class MaskDetection(nn.Module):
     
-    # def __init__(self, path="mask_weights.pt", device="cpu"):
+    def __init__(self,device, path="mask_weights.pt", ):
         # super().__init__(__file__, path, device)
+        self.device = device
 
 
     def _load_model(self, path):
