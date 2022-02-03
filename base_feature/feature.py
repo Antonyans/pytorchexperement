@@ -53,6 +53,9 @@ class BaseFeature:
         print(facedet_response)
         print('*'*60)
         for response in facedet_response:
+            print('='*60)
+            print(response)
+            print('='*60)
             image = response["_meta"]["image"]
             rect = response["rectangle"]
             box = [rect["left"], rect["top"], rect["right"], rect["bottom"]]
