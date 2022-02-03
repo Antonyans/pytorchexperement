@@ -14,7 +14,7 @@ model_urls = {
     'mask': 'https://drive.google.com/uc?id=18AosQQaVDpY2PLQxOAwMTs1uaa-8mzpL',
 }
 
-class MaskDetection(BaseFeature):
+class MaskDetection(nn.Module):
     
     def __init__(self, path="mask_weights.pt", device="cpu"):
         super().__init__(__file__, path, device)
