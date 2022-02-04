@@ -14,12 +14,10 @@ model_urls = {
     'mask': 'https://drive.google.com/uc?id=18AosQQaVDpY2PLQxOAwMTs1uaa-8mzpL',
 }
 
-class MaskDetection(nn.Module):
+class MaskDetection(BaseFeature):
     
-    def __init__(self,device, path="mask_weights.pt", ):
-        # super().__init__(__file__, path, device)
-        self.device = device
-
+    def __init__(self, path="mask_weights.pt", device="cpu"):
+        super().__init__(__file__, path, device)
 
     def _load_model(self, path):
         model = resnet18()
