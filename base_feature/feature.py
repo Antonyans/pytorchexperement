@@ -72,12 +72,12 @@ class BaseFeature:
 
         return faces
 
-    # def __call__(self, facedet_response):
-    #     images = self.extract_faces(facedet_response)
-    #     img = self._img_preprocess(images)
-    #     outputs = self.model(img).cpu().detach()
-    #     response = self._output_postprocess(outputs)
-    #     return response
+    def __call__(self, facedet_response):
+        images = self.extract_faces(facedet_response)
+        img = self._img_preprocess(images)
+        outputs = self.model(img).cpu().detach()
+        response = self._output_postprocess(outputs)
+        return response
 
     def _output_postprocess(self, outputs):
         raise NotImplementedError
